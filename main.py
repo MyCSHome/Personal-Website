@@ -15,66 +15,16 @@
 # limitations under the License.
 #
 import webapp2
-import logging
+import jinja2
+import os
 
-html = """
-<!DOCTYPE html>
 
-<html>
-  <head>
-    <title>Unit 2 Rot 13</title>
-  </head>
-
-  <body>
-    <h2>Enter some text to ROT13:</h2>
-    <form method="post">
-      <textarea name="text"
-                style="height: 100px; width: 400px;">%s</textarea>
-      <br>
-      <input type="submit">
-    </form>
-  </body>
-
-</html>
-"""
-
-def rot13(text):
-    lowercase = "abcdefghijklmnopqrstuvwxyz"
-    uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" 
-    special = {'<' : '&lt;', '>' : '&gt;', '"': '&quot;', '&':'&amp;'}
-    list = []
-    for letter in text:
-        if letter in lowercase:
-            number = ord(letter)
-            if number >= 110:
-                number = 97 + number - 110
-            else:
-                number += 13
-            list.append(chr(number))
-        elif letter in uppercase:
-            number = ord(letter)
-            if number >= 78:
-                number = 65 + number - 78
-            else:
-                number += 13
-            list.append(chr(number))
-        elif letter in special:
-            list.append(special[letter])
-        else:
-            list.append(letter)
-    return ''.join(list)
-          
-def gethtml(html,value):
-    logging.info("bbb")
-    return html % value
+jinja_environment = jinja2.Environment(autoescape=True, loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')))
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.out.write(gethtml(html,""))
-    def post(self):
-        text = self.request.get('text')
-        self.response.out.write(gethtml(html,rot13(text)))
+        main_page = jinja_environment.get_template('mainpage.html')
+        self.response.out.write(main_page.render())
     
-        
 
-app = webapp2.WSGIApplication([('/', MainHandler)], debug=True)
+app = webapp2.WSGIApplication([('/', MainHandler),('/rot13', 'handler_functions.rot13handler.Rot13Handler'),('/signup', 'handler_functions.signuphandler.SignupHandler'), ('/signup/welcome', 'handler_functions.thankshandler.ThanksHandler')], debug=True)
