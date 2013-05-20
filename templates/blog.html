@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+
+  <title>CS Blog</title>
+</head>
+
+<body>
+  <a href="/blog" class="main-title">
+    CS Blog
+  </a>
+
+  <div class="login-area">
+    
+      <a class="login-link" href="/login">login</a>
+      |
+      <a class="login-link" href="/signup">signup</a>
+    
+  </div>
+  
+   <div class="post-area">
+    
+      <a class="post-link" href="/blog/newpost">new blog</a>
+    
+  </div>
+
+<div id="content">
+ 
+<hr>
+{% for blog in blogs %}
+        <div class="post"> 
+            <div class="post-heading">
+                <a href="/blog/{{blog.key().id()}}" class="post-title">
+                    {{blog.subject}}
+                </a>
+
+    <div class="post-date">
+        {{blog.created.strftime("%b %d, %Y")}}
+    </div>
+  </div>
+
+  <div class="post-content">
+   {{blog.content}}
+  </div>
+</div>
+<br><br>
+{% endfor %}
+
+
+<!--
+<div class="post">
+  <div class="post-heading">
+    <a href="/blog/20002" class="post-title">
+      the suit is back!
+    </a>
+
+    <div class="post-date">
+      May 08, 2012
+    </div>
+  </div>
+
+  <div class="post-content">
+    again
+  </div>
+</div>
+<br><br>
+-->
+  
+<div class="age">
+   queried 46213 seconds ago
+</div>
+
+
+  </div>
+</body>
+
+</html>

@@ -27,4 +27,4 @@ class MainHandler(webapp2.RequestHandler):
         self.response.out.write(main_page.render())
     
 
-app = webapp2.WSGIApplication([('/', MainHandler),('/rot13', 'handler_functions.rot13handler.Rot13Handler'),('/signup', 'handler_functions.signuphandler.SignupHandler'), ('/signup/welcome', 'handler_functions.thankshandler.ThanksHandler')], debug=True)
+app = webapp2.WSGIApplication([('/', MainHandler),('/blog/newpost', 'handler_functions.newbloghandler.NewBlogHandler'),('/blog', 'handler_functions.bloghandler.BlogHandler'),('/rot13', 'handler_functions.rot13handler.Rot13Handler'),('/signup', 'handler_functions.signuphandler.SignupHandler'), ('/login', 'handler_functions.loginhandler.LoginHandler'),('/logout', 'handler_functions.logouthandler.LogoutHandler'),('/blog/(\d+)', 'handler_functions.linkhandler.LinkHandler'),('/signup/welcome', 'handler_functions.thankshandler.ThanksHandler')], debug=True)

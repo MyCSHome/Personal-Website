@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+
+  <title>CS Blog</title>
+</head>
+
+<body>
+  <a href="/blog" class="main-title">
+    CS Blog
+  </a>
+  
+   <div class="post-area">
+    
+      <a class="post-link" href="/blog">main page</a>
+    
+  </div>
+<hr>
+      <div class="post"> 
+            <div class="post-heading">
+                <a class="post-title">
+                    {{blog.subject}}
+                </a>
+
+    <div class="post-date">
+        {{blog.created.strftime("%b %d, %Y")}}
+    </div>
+  </div>
+
+  <div class="post-content">
+ <pre>  {{blog.content}} </pre>
+  </div>
+</div>
+<br><br>
+</body>
+
+</html>
