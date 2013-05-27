@@ -27,4 +27,13 @@ class MainHandler(webapp2.RequestHandler):
         self.response.out.write(main_page.render())
     
 
-app = webapp2.WSGIApplication([('/', MainHandler),('/blog/newpost', 'handler_functions.newbloghandler.NewBlogHandler'),('/blog', 'handler_functions.bloghandler.BlogHandler'),('/rot13', 'handler_functions.rot13handler.Rot13Handler'),('/signup', 'handler_functions.signuphandler.SignupHandler'), ('/login', 'handler_functions.loginhandler.LoginHandler'),('/logout', 'handler_functions.logouthandler.LogoutHandler'),('/blog/(\d+)', 'handler_functions.linkhandler.LinkHandler'),('/signup/welcome', 'handler_functions.thankshandler.ThanksHandler')], debug=True)
+app = webapp2.WSGIApplication([('/', MainHandler),
+('/blog/newpost', 'handler_functions.newbloghandler.NewBlogHandler'),
+('/blog/?(?:\.json)?', 'handler_functions.bloghandler.BlogHandler'),
+('/rot13', 'handler_functions.rot13handler.Rot13Handler'),
+('/blog/signup', 'handler_functions.signuphandler.SignupHandler'), 
+('/blog/login', 'handler_functions.loginhandler.LoginHandler'),
+('/blog/logout', 'handler_functions.logouthandler.LogoutHandler'),
+('/blog/(\d+)(?:\.json)?', 'handler_functions.linkhandler.LinkHandler'),
+('/blog/signup/welcome', 'handler_functions.thankshandler.ThanksHandler')], 
+debug=True)

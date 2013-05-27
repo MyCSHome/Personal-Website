@@ -15,7 +15,7 @@ class ThanksHandler(webapp2.RequestHandler):
                 if user.encryption.split('|')[0] == userr.split('|')[1]:
                     self.response.out.write("welcome, %s!" %user.username)
                     return
-        self.redirect("/signup")
+        self.redirect("/blog/signup")
             
 
 def valid_pw(name, pw, h):

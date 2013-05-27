@@ -28,7 +28,7 @@ class LoginHandler(webapp2.RequestHandler):
                 id = str(user.key().id())
                 encryption = str(user.encryption.split('|')[0])
                 self.response.headers.add_header('Set-Cookie', 'user_id=' +id+'|'+encryption+';Path=/')
-                self.redirect("/signup/welcome")
+                self.redirect("/blog/signup/welcome")
             else:
                 dic = {}
                 dic["e1"] = LoginHandler.e2

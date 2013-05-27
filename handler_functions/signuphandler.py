@@ -43,7 +43,7 @@ class SignupHandler(webapp2.RequestHandler):
             newuser.put()
             userid = newuser.key().id()
             self.response.headers.add_header('Set-Cookie', 'user_id=%s|%s;Path=/' % (userid,encryption.split('|')[0]))
-            self.redirect("/signup/welcome")
+            self.redirect("/blog/signup/welcome")
         else:
             dic = {}
             dic["username"] = cgi.escape(u, quote = True)

@@ -15,6 +15,12 @@ class Blog(db.Model):
     subject = db.StringProperty(required = True)
     content = db.TextProperty(required = True)
     created = db.DateTimeProperty(auto_now_add = True)
+    
+    def as_dict(self):
+        d = {'subject' : self.subject,
+             'content' : self.content,
+             'created' : self.created.strftime('%c')}
+        return d
 
 class NewBlogHandler(Handler):
     def new_blog(self, subject="", content="", error=""):
