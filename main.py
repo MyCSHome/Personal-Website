@@ -29,6 +29,7 @@ class MainHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([('/', MainHandler),
 ('/blog/newpost', 'handler_functions.newbloghandler.NewBlogHandler'),
+('/blog/flush', 'handler_functions.flushhandler.FlushHandler'),
 ('/blog/?(?:\.json)?', 'handler_functions.bloghandler.BlogHandler'),
 ('/rot13', 'handler_functions.rot13handler.Rot13Handler'),
 ('/blog/signup', 'handler_functions.signuphandler.SignupHandler'), 

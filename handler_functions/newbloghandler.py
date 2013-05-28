@@ -1,28 +1,14 @@
 import webapp2
 from main import jinja_environment
 from google.appengine.ext import db
-
-class Handler(webapp2.RequestHandler):
-    def write(self, *a, **kw):
-        self.response.out.write(*a, **kw)
-    def render_str(self, template, **params):
-        t = jinja_environment.get_template(template)
-        return t.render(params)
-    def render(self, template, **kw):
-        self.write(self.render_str(template, **kw))
-
-class Blog(db.Model):
-    subject = db.StringProperty(required = True)
-    content = db.TextProperty(required = True)
-    created = db.DateTimeProperty(auto_now_add = True)
-    
-    def as_dict(self):
-        d = {'subject' : self.subject,
-             'content' : self.content,
-             'created' : self.created.strftime('%c')}
-        return d
-
+from bloghandler import get_blogs
+from bloghandler import Blog
+from bloghandler import Handler
+from google.appengine.api import memcache
+import time
+last_query = time.time()
 class NewBlogHandler(Handler):
+    global last_query
     def new_blog(self, subject="", content="", error=""):
         self.render("newblog.html", subject=subject, content=content, error=error)
     
@@ -35,7 +21,10 @@ class NewBlogHandler(Handler):
         if subject and content:
             b = Blog(subject = subject, content = content)
             b.put()
+            get_blogs(True)
             id = b.key().id()
+            memcache.set(str(id), b)
+            last_query = time.time()
             self.redirect("/blog/%d" % id)
         else:
             error = "we need both subject and content"
